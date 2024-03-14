@@ -1,0 +1,26 @@
+# argo-rollout.yaml
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: nginx-rollout
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    blueGreen:
+      activeService: nginx-blue
+      previewService: nginx-green
+      autoPromotionEnabled: false
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.15.4 # Update to :latest
+        ports:
+        - containerPort: 80

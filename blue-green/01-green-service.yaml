@@ -1,0 +1,13 @@
+# green-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-green
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
